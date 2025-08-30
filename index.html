@@ -92,13 +92,55 @@ footer { padding-top: 40px; padding-bottom: 40px; }
 }
 
 /* Responsive tweaks for small screens */
-@media (max-width: 767px) {
-  section, footer, .pain, .lead, #pricing, #chatbot, #bot-deep, #hiw, .pain-section {
-    padding-top: 36px;
-    padding-bottom: 36px;
-  }
-  .hero { padding-top: 80px; padding-bottom: 40px; }
-  .grid, .pricing-grid { gap: 18px; }
+@media (max-width: 1024px) {
+  .wrapper { max-width: 96vw; }
+  .hero-img img { width: 90vw; height: auto; }
+  .pricing-grid, .grid { grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 18px; }
+}
+@media (max-width: 900px) {
+  .hero-flex { flex-direction: column; text-align: center; gap: 24px; }
+  .hero-img img { width: 95vw; height: auto; }
+  .hero-text { max-width: 100%; }
+  .tabs { gap: 8px; }
+  .tab-btn { padding: 10px; }
+  .pricing-card { padding: 22px; }
+}
+@media (max-width: 768px) {
+  header .wrapper { flex-direction: column; align-items: stretch; height: auto; padding: 10px 1rem; gap: 8px; }
+  nav ul { flex-wrap: nowrap; overflow-x: auto; gap: 12px; padding: 6px 0; -webkit-overflow-scrolling: touch; }
+  nav ul::-webkit-scrollbar { display: none; }
+  .hero { padding: 60px 0 30px; }
+  .hero-flex { gap: 14px; }
+  .hero-img { order: 2; }
+  .hero-text { order: 1; }
+  .hero-img img { width: 98vw; height: auto; max-width: 700px; }
+  .btn { width: 100%; max-width: 520px; margin: 0 auto; display: block; }
+  .btn-outline, .btn-primary { padding: 12px 18px; }
+  .grid, .pricing-grid { grid-template-columns: 1fr; }
+  .card { padding: 14px; }
+  .pain-box { padding: 16px; }
+  .slider-wrap { max-height: 180px; }
+  .hero-decor { display: none; }
+  .tab-panel.active { flex-direction: column; }
+  .wrapper { padding: 0 0.5rem; }
+}
+@media (max-width: 480px) {
+  body { font-size: 15px; }
+  .wrapper { padding: 0 0.3rem; }
+  .hero { padding: 40px 0 18px; }
+  .hero h1 { font-size: clamp(1.2rem,8vw,1.7rem); }
+  .tab-btn { flex: 1 1 100px; padding: 8px; font-size: .92rem; }
+  .lead form { gap: 8px; }
+  .lead input { padding: 8px; }
+  .pricing-card { padding: 10px; }
+  .interactive-card { padding: 10px; }
+  .btn { padding: 10px 10px; }
+  .pain-section { padding: 1.5rem 0.2rem; }
+}
+@media (max-width: 400px) {
+  .hero h1 { font-size: 1.1rem; }
+  .tab-btn { font-size: .85rem; }
+  .btn { font-size: .95rem; }
 }
 
 /* --- END SPACING DEBUG/FIXES --- */
@@ -324,45 +366,168 @@ canvas#bg-canvas { image-rendering: optimizeQuality; }
   .hero-decor,.parallax,.pulse,.reveal-on-scroll{animation:none!important;transition:none!important}
 }
 
-/* ---------- MOBILE SIDEBAR NAV (no layout change on desktop) ---------- */
-.mobile-menu-btn{
-  display:none; /* shown on small screens via media query */
-  background:transparent;border:0;color:var(--navy);cursor:pointer;
-  width:42px;height:42px;border-radius:8px;align-items:center;justify-content:center;
+/* --- RESPONSIVE NAV & SIDEBAR --- */
+header .brand-text { display: inline; }
+.mobile-menu-btn {
+  display: none;
+  background: transparent;
+  border: 0;
+  color: var(--navy);
+  cursor: pointer;
+  width: 42px;
+  height: 42px;
+  border-radius: 8px;
+  align-items: center;
+  justify-content: center;
+  z-index: 300;
+  position: relative;
 }
-.mobile-menu-btn .bar{display:block;width:20px;height:2px;background:var(--navy);margin:4px 0;transition:all .18s ease}
-
-/* sidebar */
-.mobile-nav{
-  position:fixed;top:0;left:0;height:100vh;width:280px;max-width:84vw;
-  background:var(--white);box-shadow:0 20px 40px rgba(3,10,25,.12);
-  transform:translateX(-110%);transition:transform .32s cubic-bezier(.2,.9,.2,1);
-  z-index:210;padding:24px;display:flex;flex-direction:column;gap:18px;
+.mobile-menu-btn .bar {
+  display: block;
+  width: 22px;
+  height: 3px;
+  background: var(--navy);
+  margin: 4px 0;
+  border-radius: 2px;
+  transition: all .18s ease;
 }
-.mobile-nav.open{transform:translateX(0)}
-.mobile-nav .close-btn{align-self:flex-end;background:transparent;border:0;font-size:18px;cursor:pointer}
-.mobile-nav nav ul{display:flex;flex-direction:column;gap:14px;list-style:none;padding:12px 0;margin:0}
-.mobile-nav nav a{color:var(--navy);font-weight:700;padding:8px 6px;display:block}
-
-/* overlay */
-.mobile-overlay{
-  position:fixed;inset:0;background:rgba(6,12,24,.36);opacity:0;pointer-events:none;
-  transition:opacity .28s ease;z-index:200;
+.mobile-nav {
+  position: fixed;
+  top: 0; left: 0; height: 100vh; width: 260px; max-width: 84vw;
+  background: var(--white);
+  box-shadow: 0 20px 40px rgba(3,10,25,.12);
+  transform: translateX(-110%);
+  transition: transform .32s cubic-bezier(.2,.9,.2,1);
+  z-index: 210;
+  padding: 0 0 24px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
 }
-.mobile-overlay.show{opacity:1;pointer-events:auto}
-
-/* show hamburger and hide desktop nav on small screens */
-@media (max-width:768px){
-  header .wrapper{align-items:center}
-  nav{display:none} /* hide desktop nav on mobile */
-  .mobile-menu-btn{display:flex}
-  /* keep CTA compact */
-  header .wrapper > a.btn{display:inline-block}
+.mobile-nav.open { transform: translateX(0); }
+.mobile-nav .close-btn {
+  align-self: flex-end;
+  background: transparent;
+  border: 0;
+  font-size: 2rem;
+  cursor: pointer;
+  margin: 18px 18px 8px 0;
+  color: var(--navy);
+}
+.mobile-nav nav ul {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.mobile-nav nav li {
+  border-bottom: 1px solid #e3eaef;
+}
+.mobile-nav nav a {
+  color: var(--navy);
+  font-weight: 700;
+  padding: 16px 28px;
+  display: block;
+  font-size: 1.1rem;
+  transition: background 0.18s;
+}
+.mobile-nav nav a:hover,
+.mobile-nav nav a:focus {
+  background: #f7faff;
+  color: var(--teal);
+}
+.mobile-nav .sidebar-cta {
+  margin: 28px 24px 0 24px;
+  display: block;
+  width: calc(100% - 48px);
+}
+.mobile-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(6,12,24,.36);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .28s ease;
+  z-index: 200;
+}
+.mobile-overlay.show {
+  opacity: 1;
+  pointer-events: auto;
 }
 
-/* respect reduced motion */
-@media (prefers-reduced-motion:reduce){
-  .mobile-nav,.mobile-overlay{transition:none}
+/* Hide desktop nav and show hamburger on small screens */
+@media (max-width: 900px) {
+  nav, .desktop-nav-btn { display: none !important; }
+  .mobile-menu-btn { display: flex !important; }
+  header .brand-text { display: none; }
+  header .wrapper > a.btn { display: none !important; }
+  header .wrapper {
+    height: 56px !important;
+    min-height: 0;
+    padding: 0 1rem !important;
+    gap: 0;
+  }
+  header {
+    min-height: 56px;
+    height: 56px;
+  }
+}
+
+/* Adjust logo for mobile */
+@media (max-width: 900px) {
+  header .wrapper > div > img {
+    margin-right: 0;
+    width: 38px !important;
+    height: 38px !important;
+  }
+}
+
+/* Reduce header height for all screens */
+header, header .wrapper {
+  min-height: 56px;
+  height: 56px;
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+/* --- Fix chatbot and bot-deep sections for mobile --- */
+@media (max-width: 900px) {
+  #chatbot .wrapper,
+  #bot-deep .wrapper {
+    grid-template-columns: 1fr !important;
+    gap: 24px !important;
+  }
+  #chatbot .wrapper > div,
+  #bot-deep .wrapper > div {
+    max-width: 100%;
+  }
+  #chatbot img,
+  #bot-deep img,
+  #chatbot .slider-wrap,
+  #bot-deep .slider-wrap {
+    max-width: 100vw !important;
+    width: 100% !important;
+    height: auto !important;
+    margin: 0 auto;
+    display: block;
+  }
+}
+@media (max-width: 600px) {
+  #chatbot .wrapper,
+  #bot-deep .wrapper {
+    padding: 0 0.2rem !important;
+    gap: 12px !important;
+  }
+  #chatbot img,
+  #bot-deep img,
+  #chatbot .slider-wrap,
+  #bot-deep .slider-wrap {
+    max-width: 98vw !important;
+    width: 100% !important;
+    height: auto !important;
+  }
 }
 </style>
 </head>
@@ -375,16 +540,16 @@ canvas#bg-canvas { image-rendering: optimizeQuality; }
 <header>
   <div class="wrapper">
     <div style="display:flex;align-items:center;gap:8px;font-weight:700">
-      <img src="WhatsApp Image 2025-08-20 at 18.09.23_47dfe0a0.jpg" alt="Kalpvruksh AI" style="width:36px;height:36px;border-radius:50%;object-fit:cover;">Kalpvruksh AI
+      <img src="WhatsApp Image 2025-08-20 at 18.09.23_47dfe0a0.jpg" alt="Kalpvruksh AI" style="width:36px;height:36px;border-radius:50%;object-fit:cover;">
+      <span class="brand-text">Kalpvruksh AI</span>
     </div>
-
     <!-- mobile menu button (visible only on small screens) -->
     <button id="mobileMenuBtn" class="mobile-menu-btn" aria-label="Open menu" aria-haspopup="true" aria-controls="mobile-nav">
       <span class="bar" aria-hidden="true"></span>
       <span class="bar" aria-hidden="true"></span>
       <span class="bar" aria-hidden="true"></span>
     </button>
-
+    <!-- Desktop nav and CTA button -->
     <nav>
       <ul>
         <li><a href="#templates">Templates</a></li>
@@ -394,11 +559,11 @@ canvas#bg-canvas { image-rendering: optimizeQuality; }
         <li><a href="#chatbot">AI Chatbot (Waitlist)</a></li>
       </ul>
     </nav>
-    <a href="#lead" class="btn btn-primary pulse">Get 3 Free Templates</a>
+    <a href="#lead" class="btn btn-primary pulse desktop-nav-btn">Get 3 Free Templates</a>
   </div>
 </header>
 
-<!-- MOBILE SIDEBAR + OVERLAY (keeps same nav links) -->
+<!-- MOBILE SIDEBAR + OVERLAY -->
 <div id="mobile-nav" class="mobile-nav" aria-hidden="true" role="dialog" aria-label="Mobile menu">
   <button class="close-btn" id="mobileNavClose" aria-label="Close menu">✕</button>
   <nav>
@@ -408,6 +573,9 @@ canvas#bg-canvas { image-rendering: optimizeQuality; }
       <li><a href="#pricing" class="mobile-link">Pricing</a></li>
       <li><a href="#lead" class="mobile-link">Free Samples</a></li>
       <li><a href="#chatbot" class="mobile-link">AI Chatbot (Waitlist)</a></li>
+      <li>
+        <a href="#lead" class="btn btn-primary sidebar-cta pulse" style="margin-top:18px;">Get 3 Free Templates</a>
+      </li>
     </ul>
   </nav>
 </div>
